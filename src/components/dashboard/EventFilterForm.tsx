@@ -113,7 +113,7 @@ const EventFilterForm = ({ onQueryHandler }: { onQueryHandler: (queryString: str
                         control={form.control}
                         name="isActive"
                         render={({ field }) => (
-                            <FormItem className="flex flex-col justify-end h-full">
+                            <FormItem className="flex flex-col justify-center h-full">
                                 <div className="flex items-center space-x-2">
                                     <FormControl>
                                         <Switch

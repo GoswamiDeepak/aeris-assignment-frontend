@@ -1,4 +1,4 @@
-// import { format, formatDate } from 'date-fns';
+import { format} from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -66,8 +66,8 @@ export const VehicleEventsTable = ({ events, onQueryHandler }: VehicleEventsTabl
                                         <TableCell>
                                             <Badge className={getEventTypeColor(event.eventType)}>{event.eventType}</Badge>
                                         </TableCell>
-                                        {/* <TableCell>{formatDate(event.timestamp, 'DD/MM/YYYY')}</TableCell> */}
-                                        <TableCell>{event.timestamp}</TableCell>
+                                        <TableCell>{format(event.timestamp, 'dd/MM/yyyy')}</TableCell>
+                                        {/* <TableCell>{event.timestamp}</TableCell> */}
                                         <TableCell>{event.speed} mph</TableCell>
                                         <TableCell>{event.fuelLevel}%</TableCell>
                                         <TableCell>{event.batteryStatus}</TableCell>
