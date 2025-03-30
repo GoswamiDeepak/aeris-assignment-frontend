@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Calendar, ChartBar, Settings } from 'lucide-react';
+import { Calendar, ChartBar } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const navigationItems = [
@@ -9,7 +9,7 @@ const navigationItems = [
     { icon: Calendar, label: 'List', active: false, href: '/list' },
     // { icon: Filter, label: 'Filters', active: false },
     // { icon: Search, label: 'Search', active: false },
-    { icon: Settings, label: 'Settings', active: false, href: '/settings' },
+    // { icon: Settings, label: 'Settings', active: false, href: '/settings' },
 ];
 
 interface SidebarNavigationProps {
