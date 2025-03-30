@@ -18,7 +18,7 @@ const formSchema = z.object({
 interface IFilterValue {
     vehicleId: string;
     eventType: string;
-    isActive: boolean | string;
+    isActive: boolean;
 }
 
 const EventFilterForm = ({ onQueryHandler }: { onQueryHandler: (queryString: string) => void }) => {
@@ -29,12 +29,13 @@ const EventFilterForm = ({ onQueryHandler }: { onQueryHandler: (queryString: str
         defaultValues: {
             vehicleId: '',
             eventType: '',
-            isActive: undefined,
+            isActive: false,
         },
     });
 
     // Handle form submission
     const onSubmit = (values: z.infer<typeof formSchema>) => {
+        console.log(values);
         handleDebouceInput(values as IFilterValue);
     };
 
@@ -43,6 +44,7 @@ const EventFilterForm = ({ onQueryHandler }: { onQueryHandler: (queryString: str
         form.reset();
         onQueryHandler('');
     };
+
     let timer: NodeJS.Timeout | undefined;
     function handleDebouceInput(values: IFilterValue) {
         if (timer) {
@@ -50,7 +52,18 @@ const EventFilterForm = ({ onQueryHandler }: { onQueryHandler: (queryString: str
         }
         timer = setTimeout(() => {
             // console.log('after delay', values);
-            const filteredParams = Object.fromEntries(Object.entries(values).filter((item) => !!item[1]));
+            // const filteredParams = Object.fromEntries(Object.entries(values).filter((item) => !!item[1]));
+            // const filteredParams = Object.fromEntries(Object.entries(values).filter(([key, value]) => typeof value === 'boolean' || !!value );
+            const filteredParams = Object.fromEntries(
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                Object.entries(values).filter(([_, value]) => {
+                    // Keep the value if:
+                    // 1. It's a boolean (true or false), OR
+                    // 2. It's a non-empty string/number/object/etc
+                    return typeof value === 'boolean' || !!value;
+                })
+            );
+
             const queryString = new URLSearchParams(filteredParams as unknown as Record<string, string>).toString();
             console.log(queryString);
             onQueryHandler(queryString);
