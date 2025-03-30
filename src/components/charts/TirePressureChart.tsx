@@ -1,7 +1,7 @@
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { VehicleEventType } from '@/types/VehicalEventTypes';
 
 interface TirePressureChartProps {
@@ -9,8 +9,14 @@ interface TirePressureChartProps {
 }
 
 export const TirePressureChart = ({ events }: TirePressureChartProps) => {
-    const [selectedVehicleId, setSelectedVehicleId] = useState(events[0]?.vehicleId || '');
+    const [selectedVehicleId, setSelectedVehicleId] = useState<string>();
 
+    useEffect(() => {
+        if (events) {
+            setSelectedVehicleId(events[0]?.vehicleId);
+        }
+    }, [events]);
+    // console.log({ selectedVehicleId });
     const selectedEvent = events.find((event) => event.vehicleId === selectedVehicleId);
 
     const data = selectedEvent

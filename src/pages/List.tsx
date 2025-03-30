@@ -1,6 +1,7 @@
 import { VehicleEventsTable } from '@/components/dashboard/VehicalEventsTable';
 import { getVehicals } from '@/http/api';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 // const VehicleEvent = [
 //     {
@@ -27,16 +28,21 @@ import { useQuery } from '@tanstack/react-query';
 // ];
 
 const List = () => {
+    const [queryString, setQueryString] = useState('');
+
     const { data: vehicleData = [] } = useQuery({
-        queryKey: ['vehicalEvents'],
+        queryKey: ['vehicalEvents', queryString],
         queryFn: async () => {
-            const response = await getVehicals();
+            const response = await getVehicals(queryString);
             return response.data;
         },
     });
+    function handleQueryString(queryString = '') {
+        setQueryString(queryString);
+    }
     return (
         <div>
-            <VehicleEventsTable events={vehicleData} />
+            <VehicleEventsTable events={vehicleData} onQueryHandler={handleQueryString} />
         </div>
     );
 };

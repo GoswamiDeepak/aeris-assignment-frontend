@@ -1,3 +1,3 @@
 import { api } from "./client";
 
-export const getVehicals = () => api.get('/api/v1/vehicals');
+export const getVehicals = (queryString?:string) => api.get(`/api/v1/vehicals?${queryString}`);
